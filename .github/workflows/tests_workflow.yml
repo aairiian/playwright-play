@@ -28,13 +28,16 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
     - name: Download node_modules
       uses: actions/download-artifact@v3
       with:
         name: node_modules
     - name: Change to upper dir
       run: |
-        cd /__w/playwright-play
         pwd
         ls -ltr
     - name: Run Playwright tests
