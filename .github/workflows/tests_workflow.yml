@@ -36,6 +36,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: node_modules
+        path: node_modules
     - name: Change to upper dir
       run: |
         pwd
