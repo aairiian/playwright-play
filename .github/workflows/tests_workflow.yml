@@ -32,13 +32,13 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: node_modules
-    - name: Change dir
-      run: pwd; ls -ltr
-#     - name: Run Playwright tests
-#       run: npx playwright test
-#     - uses: actions/upload-artifact@v3
-#       if: always()
-#       with:
-#         name: playwright-report
-#         path: playwright-report/
-#         retention-days: 5
+    - name: Change to upper dir
+      run: cd ..
+    - name: Run Playwright tests
+      run: npx playwright test
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 5
