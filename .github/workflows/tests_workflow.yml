@@ -33,7 +33,10 @@ jobs:
       with:
         name: node_modules
     - name: Change to upper dir
-      run: cd /__w/playwright-play
+      run: |
+        cd /__w/playwright-play
+        pwd
+        ls -ltr
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v3
