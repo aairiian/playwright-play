@@ -23,7 +23,7 @@ jobs:
         retention-days: 1
 
 
-  run-tests:
+  tests-run:
     name: Run tests
     needs: install-dependencies
     runs-on: ubuntu-latest
