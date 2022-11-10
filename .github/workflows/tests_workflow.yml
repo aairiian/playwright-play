@@ -1,9 +1,9 @@
-name: Tests separeted by jobs
+name: Test Workflow
 
 on: [push]
 
 jobs:
-  job_1:
+  install-dependencies:
     name: Install dependencies
     runs-on: ubuntu-latest
     steps:
@@ -15,15 +15,17 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Upload node_modules
     - uses: actions/upload-artifact@v3
       with:
         name: node_modules
         path: node_modules
+        retention-days: 1
 
 
-  job_2:
+  run-tests:
     name: Run tests
-    needs: job_1
+    needs: install-dependencies
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.27.1-focal
@@ -37,11 +39,8 @@ jobs:
       with:
         name: node_modules
         path: node_modules
-    - name: Change to upper dir
-      run: |
-        pwd
-        ls -ltr
-        chmod -R a+x node_modules
+    - name: Change permission for the node_modules folder
+      run: chmod -R a+x node_modules
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v3
