@@ -3,7 +3,7 @@ name: Test Workflow
 on: [push]
 
 jobs:
-  install:
+  job_1:
     name: Install dependencies
     runs-on: ubuntu-latest
     steps:
@@ -23,9 +23,9 @@ jobs:
         retention-days: 1
 
 
-  tests:
+  job_2:
     name: Run tests
-    needs: install
+    needs: job_1
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.27.1-focal
