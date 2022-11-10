@@ -1,4 +1,4 @@
-name: Test Workflow
+name: Tests separeted by jobs
 
 on: [push]
 
@@ -15,12 +15,10 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Upload node_modules
     - uses: actions/upload-artifact@v3
       with:
         name: node_modules
         path: node_modules
-        retention-days: 1
 
 
   job_2:
@@ -39,8 +37,11 @@ jobs:
       with:
         name: node_modules
         path: node_modules
-    - name: Change permission for the node_modules folder
-      run: chmod -R a+x node_modules
+    - name: Change to upper dir
+      run: |
+        pwd
+        ls -ltr
+        chmod -R a+x node_modules
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v3
