@@ -1,0 +1,19 @@
+name: Reusable Workflow
+
+on:
+  workflow_call:
+   inputs:
+     username:
+        description: 'A username passed from the caller workflow'
+        default: 'Pita'
+        required: false
+        type: string
+jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    env: ${{ secrets.MY_NAME }}
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        username: ${{ secrets.envPAT }}
+        secret: env
